@@ -6,8 +6,8 @@
  * @link       http://example.com
  * @since      1.0.0
  *
- * @package    WP-PHP-EWS-Auth
- * @subpackage WP-PHP-EWS-Auth/includes
+ * @package    WP_PHP_EWS_Auth
+ * @subpackage WP_PHP_EWS_Auth/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    WP-PHP-EWS-Auth
- * @subpackage WP-PHP-EWS-Auth/includes
+ * @package    WP_PHP_EWS_Auth
+ * @subpackage WP_PHP_EWS_Auth/includes
  * @author     Your Name <email@example.com>
  */
-class WP-PHP-EWS-Auth_Loader {
+class WP_PHP_EWS_Auth_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

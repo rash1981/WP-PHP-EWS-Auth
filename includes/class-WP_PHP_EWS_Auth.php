@@ -9,8 +9,8 @@
  * @link       http://example.com
  * @since      1.0.0
  *
- * @package    WP-PHP-EWS-Auth
- * @subpackage WP-PHP-EWS-Auth/includes
+ * @package    WP_PHP_EWS_Auth
+ * @subpackage WP_PHP_EWS_Auth/includes
  */
 
 /**
@@ -27,7 +27,7 @@
  * @subpackage Plugin_Name/includes
  * @author     Your Name <email@example.com>
  */
-class WP-PHP-EWS-Auth {
+class WP_PHP_EWS_Auth {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -68,7 +68,7 @@ class WP-PHP-EWS-Auth {
 	 */
 	public function __construct() {
 
-		$this->plugin_name = 'WP-PHP-EWS-Auth';
+		$this->plugin_name = 'WP_PHP_EWS_Auth';
 		$this->version = '1.0.0';
 
 		$this->load_dependencies();
@@ -100,26 +100,26 @@ class WP-PHP-EWS-Auth {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-WP-PHP-EWS-Auth-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-WP_PHP_EWS_Auth-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-WP-PHP-EWS-Auth-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-WP_PHP_EWS_Auth-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-WP-PHP-EWS-Auth-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-WP_PHP_EWS_Auth-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-WP-PHP-EWS-Auth-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-WP_PHP_EWS_Auth-public.php';
 
-		$this->loader = new WP-PHP-EWS-Auth_Loader();
+		$this->loader = new WP_PHP_EWS_Auth_Loader();
 
 	}
 
@@ -134,7 +134,7 @@ class WP-PHP-EWS-Auth {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new WP-PHP-EWS-Auth_i18n();
+		$plugin_i18n = new WP_PHP_EWS_Auth_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -149,7 +149,7 @@ class WP-PHP-EWS-Auth {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new WP-PHP-EWS-Auth_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new WP_PHP_EWS_Auth_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -165,7 +165,7 @@ class WP-PHP-EWS-Auth {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new WP-PHP-EWS-Auth_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new WP_PHP_EWS_Auth_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );

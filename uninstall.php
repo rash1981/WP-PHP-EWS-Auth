@@ -22,7 +22,7 @@
  * @link       http://example.com
  * @since      1.0.0
  *
- * @package    WP-PHP-EWS-Auth
+ * @package    WP_PHP_EWS_Auth
  */
 
 // If uninstall not called from WordPress, then exit.

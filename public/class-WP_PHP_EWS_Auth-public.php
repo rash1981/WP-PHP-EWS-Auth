@@ -6,8 +6,8 @@
  * @link       http://example.com
  * @since      1.0.0
  *
- * @package    WP-PHP-EWS-Auth
- * @subpackage WP-PHP-EWS-Auth/public
+ * @package    WP_PHP_EWS_Auth
+ * @subpackage WP_PHP_EWS_Auth/public
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    WP-PHP-EWS-Auth
- * @subpackage WP-PHP-EWS-Auth/public
+ * @package    WP_PHP_EWS_Auth
+ * @subpackage WP_PHP_EWS_Auth/public
  * @author     Your Name <email@example.com>
  */
-class WP-PHP-EWS-Auth_Public {
+class WP_PHP_EWS_Auth_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -73,7 +73,7 @@ class WP-PHP-EWS-Auth_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/WP-PHP-EWS-Auth-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/WP_PHP_EWS_Auth-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -96,7 +96,7 @@ class WP-PHP-EWS-Auth_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/WP-PHP-EWS-Auth-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/WP_PHP_EWS_Auth-public.js', array( 'jquery' ), $this->version, false );
 
 	}
 
