@@ -14,11 +14,11 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Exchange Web Services Authentication 
- * Plugin URI:        http://example.com/plugin-name-uri/
+ * Plugin URI:        https://www.polymessa.com/WP_PHP_EWS_Auth/
  * Description:       Allow existing EWS users to log in to WordPress without the need of creating an extra account.
  * Version:           1.0.0
- * Author:            polymessa
- * Author URI:        http://example.com/
+ * Author:            Wouter S. Schuur
+ * Author URI:        https://www.polymessa.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       WP_PHP_EWS_Auth
@@ -72,10 +72,5 @@ function run_WP_PHP_EWS_Auth() {
 	$plugin->run();
 
 }
-
-
-
-
-
 
 run_WP_PHP_EWS_Auth();

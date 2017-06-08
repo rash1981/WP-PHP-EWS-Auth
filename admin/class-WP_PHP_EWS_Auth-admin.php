@@ -18,7 +18,7 @@
  *
  * @package    WP_PHP_EWS_Auth
  * @subpackage WP_PHP_EWS_Auth/admin
- * @author     Your Name <email@example.com>
+ * @author     Wouter S. Schuur <w.s.schuur@gmail.com>
  */
 class WP_PHP_EWS_Auth_Admin {
 

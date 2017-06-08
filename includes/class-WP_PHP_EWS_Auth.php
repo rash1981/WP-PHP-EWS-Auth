@@ -23,9 +23,9 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
- * @author     Your Name <email@example.com>
+ * @package    WP_PHP_EWS_Auth
+ * @subpackage WP_PHP_EWS_Auth/includes
+ * @author     Wouter S. Schuur <w.s.schuur@gmail.com>
  */
 class WP_PHP_EWS_Auth {
 
