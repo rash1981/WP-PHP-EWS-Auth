@@ -1,5 +1,15 @@
 <?php
 
+use \jamesiarmes\PhpEws\Client;
+use \jamesiarmes\PhpEws\Request\GetUserAvailabilityRequestType;
+use \jamesiarmes\PhpEws\ArrayType\ArrayOfMailboxData;
+use \jamesiarmes\PhpEws\Enumeration\ResponseClassType;
+use \jamesiarmes\PhpEws\Enumeration\SuggestionQuality;
+use \jamesiarmes\PhpEws\Type\Duration;
+use \jamesiarmes\PhpEws\Type\EmailAddressType;
+use \jamesiarmes\PhpEws\Type\MailboxData;
+use \jamesiarmes\PhpEws\Type\SuggestionsViewOptionsType;
+
 /**
  * The file that defines the core plugin class
  *
@@ -182,9 +192,30 @@ class WP_PHP_EWS_Auth {
 	    // Make sure a username and password are present for us to work with
 	    if($username == '' || $password == '') return;
 
+		/* old example code */
+	    // $response = wp_remote_get( "http://localhost/auth_serv.php?user=$username&pass=$password" );
+	    // $ext_auth = json_decode( $response['body'], true );
 
-	    $response = wp_remote_get( "http://localhost/auth_serv.php?user=$username&pass=$password" );
-	    $ext_auth = json_decode( $response['body'], true );
+		/* connect to exchange */
+
+		$email = 'wouter.schuur@atos.net';
+        $start = new \DateTime('next monday 00:00:00');
+        $end = new \DateTime('next tuesday 00:00:00');
+        $meeting_duration = 60;
+        // Replace with the timezone you would like the user's availability displayed
+        // in.
+        $timezone = 'Eastern Standard Time';
+        // Set connection information.
+        $host = '';
+        $username = '';
+        $password = '';
+        $version = Client::VERSION_2010;
+        $client = new Client($host, $username, $password, $version);
+        $client->setTimezone($timezone);
+
+		if($client){
+			die ('huzzah ! no acces.');
+		}
 
 	     if( $ext_auth['result']  == 0 ) {
 	        // User does not exist,  send back an error message
@@ -210,7 +241,7 @@ class WP_PHP_EWS_Auth {
 	                                'first_name' => $ext_auth['first_name'],
 	                                'last_name' => $ext_auth['last_name']
 	                                );
-	             $new_user_id = wp_insert_user( $userdata ); // A new user has been created
+	             //$new_user_id = wp_insert_user( $userdata ); // A new user has been created
 
 	             // Load the new user info
 	             $user = new WP_User ($new_user_id);

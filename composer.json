@@ -1,0 +1,10 @@
+{
+    "require": {
+        "jamesiarmes/php-ntlm": "dev-master",
+        "php-ews/php-ews": "dev-master"
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "minimum-stability": "dev"
+}

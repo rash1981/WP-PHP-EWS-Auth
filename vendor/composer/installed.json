@@ -1,0 +1,95 @@
+[
+    {
+        "name": "jamesiarmes/php-ntlm",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/jamesiarmes/php-ntlm.git",
+            "reference": "deda583bd93371a7940b5dd8a97b14576315a7c5"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/jamesiarmes/php-ntlm/zipball/deda583bd93371a7940b5dd8a97b14576315a7c5",
+            "reference": "deda583bd93371a7940b5dd8a97b14576315a7c5",
+            "shasum": ""
+        },
+        "require": {
+            "ext-soap": "*",
+            "php": ">=5.3.9"
+        },
+        "time": "2016-12-30T21:43:02+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "jamesiarmes\\PhpNtlm\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "James Armes",
+                "email": "jamesiarmes@gmail.com"
+            }
+        ],
+        "description": "Library for communicating with Microsoft services using NTLM authentication."
+    },
+    {
+        "name": "php-ews/php-ews",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/jamesiarmes/php-ews.git",
+            "reference": "748a2b0efbc4cd76054b13201cd73e3d7cbde967"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/jamesiarmes/php-ews/zipball/748a2b0efbc4cd76054b13201cd73e3d7cbde967",
+            "reference": "748a2b0efbc4cd76054b13201cd73e3d7cbde967",
+            "shasum": ""
+        },
+        "require": {
+            "ext-soap": "*",
+            "jamesiarmes/php-ntlm": "~1.0.0",
+            "php": ">=5.3.9"
+        },
+        "require-dev": {
+            "mustache/mustache": "~2.0"
+        },
+        "time": "2017-03-11T20:53:44+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "jamesiarmes\\PhpEws\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "James Armes",
+                "email": "jamesiarmes@gmail.com"
+            }
+        ],
+        "description": "Library for communicating with Exchange Web Services.",
+        "homepage": "http://jamesarmes.com/php-ews/"
+    }
+]
