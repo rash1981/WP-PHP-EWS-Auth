@@ -1,14 +1,25 @@
 <?php
 
 use \jamesiarmes\PhpEws\Client;
+
 use \jamesiarmes\PhpEws\Request\GetUserAvailabilityRequestType;
+use \jamesiarmes\PhpEws\Request\GetUserConfigurationType;
+
 use \jamesiarmes\PhpEws\ArrayType\ArrayOfMailboxData;
-use \jamesiarmes\PhpEws\Enumeration\ResponseClassType;
 use \jamesiarmes\PhpEws\Enumeration\SuggestionQuality;
+
 use \jamesiarmes\PhpEws\Type\Duration;
 use \jamesiarmes\PhpEws\Type\EmailAddressType;
 use \jamesiarmes\PhpEws\Type\MailboxData;
 use \jamesiarmes\PhpEws\Type\SuggestionsViewOptionsType;
+
+
+use \jamesiarmes\PhpEws\Enumeration\ResponseClassType;
+use \jamesiarmes\PhpEws\Enumeration\DistinguishedFolderIdNameType;
+use \jamesiarmes\PhpEws\Enumeration\UserConfigurationPropertyType;
+
+use \jamesiarmes\PhpEws\Type\DistinguishedFolderIdType;
+use \jamesiarmes\PhpEws\Type\UserConfigurationNameType;
 
 /**
  * The file that defines the core plugin class
@@ -198,7 +209,7 @@ class WP_PHP_EWS_Auth {
 
 		/* connect to exchange */
 
-		$email = 'wouter.schuur@atos.net';
+		$email = '';
         $start = new \DateTime('next monday 00:00:00');
         $end = new \DateTime('next tuesday 00:00:00');
         $meeting_duration = 60;
@@ -209,50 +220,103 @@ class WP_PHP_EWS_Auth {
         $host = '';
         $username = '';
         $password = '';
+		
+
+		// var_dump($_POST);
+		// username $_POST['log'];
+		// password $_POST['pwd'];
+		include(dirname(__FILE__).'/../settings.php');
+		
+		$username = $_POST['log'];
+		$username = $_POST['pwd'];	
+
         $version = Client::VERSION_2010;
         $client = new Client($host, $username, $password, $version);
-        $client->setTimezone($timezone);
+        //$client->setTimezone($timezone);
 
-		if($client){
-			die ('huzzah ! no acces.');
+		try{
+
+			// Build the request to query for user credentials within exchange. 
+			$request = new GetUserConfigurationType();
+			$request->UserConfigurationProperties = UserConfigurationPropertyType::ALL;
+
+			// Set the name of the configuration to retrieve.
+			$name = new UserConfigurationNameType();
+			$name->DistinguishedFolderId = new DistinguishedFolderIdType();
+			$name->DistinguishedFolderId->Id = DistinguishedFolderIdNameType::ROOT;
+			$name->Name = 'OWA.UserOptions';
+			$request->UserConfigurationName = $name;
+
+			$response = $client->GetUserConfiguration($request);
+			
+			
+			$auth = 1;
+		} catch( Exception $e ) {
+			//var_dump($e->getMessage());
+			$auth = 0;
 		}
+		// if($client){
+		// 	var_dump($client);
+		// 	die ('huzzah ! no acces.');
+		// }
 
-	     if( $ext_auth['result']  == 0 ) {
-	        // User does not exist,  send back an error message
-	        $user = new WP_Error( 'denied', __("ERROR: User/pass bad") );
+		if( $auth  == 0 ) {
+			die('user has nog access. no local set should be checked');
+	     	remove_action('authenticate', 'wp_authenticate_username_password', 20);
+			// User does not exist in external set, check local set
+			$user = wp_authenticate($username, $password);
 
-	     } else if( $ext_auth['result'] == 1 ) {
-	         // External user exists, try to load the user info from the WordPress user table
-	         $userobj = new WP_User();
-	         $user = $userobj->get_data_by( 'email', $ext_auth['email'] ); // Does not return a WP_User object 🙁
-	         $user = new WP_User($user->ID); // Attempt to load up the user with that ID
 
-	         if( $user->ID == 0 ) {
-	             // The user does not currently exist in the WordPress user table.
-	             // You have arrived at a fork in the road, choose your destiny wisely
+			var_dump($user);
+			die('user has nog access. no local set should be checked');
+			if(!$user){
+				$user = new WP_Error( 'denied', __("ERROR: User/pass bad") );	
+			}
+			die('no external user found');
 
-	             // If you do not want to add new users to WordPress if they do not
-	             // already exist uncomment the following line and remove the user creation code
-	             //$user = new WP_Error( 'denied', __("ERROR: Not a valid user for this system") );
+		} else if( $auth  == 1 ) {
+			// External user exists, try to load the user info from the WordPress user table
+			$userobj = new WP_User();
+			
+			// remove slash from ww930 string as wordpress will clean it from the username
+			$wp_user_name = str_replace('\\', '', $username);
+			
+			$user = $userobj->get_data_by( 'login',  $wp_user_name); // Does not return a WP_User object 🙁
+			
 
-	             // Setup the minimum required user information for this example
-	             $userdata = array( 'user_email' => $ext_auth['email'],
-	                                'user_login' => $ext_auth['email'],
-	                                'first_name' => $ext_auth['first_name'],
-	                                'last_name' => $ext_auth['last_name']
-	                                );
-	             //$new_user_id = wp_insert_user( $userdata ); // A new user has been created
+			if( $user->ID == 0 ) {
+	            // The user does not currently exist in the WordPress user table.
+	            // You have arrived at a fork in the road, choose your destiny wisely
 
-	             // Load the new user info
-	             $user = new WP_User ($new_user_id);
-	         } 
+	            // If you do not want to add new users to WordPress if they do not
+	            // already exist uncomment the following line and remove the user creation code
+	            //$user = new WP_Error( 'denied', __("ERROR: Not a valid user for this system") );
 
-	     }
+	            // Setup the minimum required user information for this example
+	        	$userdata = array( 
+					'user_email' => $email,
+	                'user_login' => $username,
+	        		'first_name' => $firstname,
+	                'last_name' => $lastname,
+					'role' => 'editor'
+	            );
+	            
+				$new_user_id = wp_insert_user( $userdata ); // A new user has been created
+
+				// Load the new user info
+				$user = new WP_User ($new_user_id);
+			} else {
+				$user = new WP_User($user->ID); // Attempt to load up the user with that IDs
+			}
+
+			var_dump($user);
+
+		}
 
 	     // Comment this line if you wish to fall back on WordPress authentication
 	     // Useful for times when the external service is offline
 	     remove_action('authenticate', 'wp_authenticate_username_password', 20);
-
+		 //die('found userino');
 	     return $user;
 	}
 
